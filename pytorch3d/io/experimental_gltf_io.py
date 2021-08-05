@@ -375,6 +375,7 @@ class _GLTFLoader:
         attributes = primitive["attributes"]
         vertex_colors = self._get_primitive_attribute(attributes, "COLOR_0", np.float32)
         if vertex_colors is not None:
+            vertex_colors = np.expand_dims(vertex_colors, axis=0) # ValueError: Expected verts_features to be of shape (N, V, C); got 'torch.Size([184, 4])'
             return TexturesVertex(torch.from_numpy(vertex_colors))
 
         vertex_texcoords_0 = self._get_primitive_attribute(
